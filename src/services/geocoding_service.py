@@ -4,6 +4,7 @@ from datetime import date
 import requests
 import aiohttp
 
+
 class GeocodingService:
 
     def __init__(self) -> None:
@@ -23,9 +24,7 @@ class GeocodingService:
         }
 
         response = requests.get(
-            search_url,
-            headers=self.headers,
-            params=params
+            search_url, headers=self.headers, params=params
         )
         data = response.json()[0]
         if not data:
@@ -35,8 +34,8 @@ class GeocodingService:
             raise ValueError("Location not found")
         location_details = {
             "full_address": data.get("display_name"),
-            "latitude":  round(float(data.get("lat")), 2),
-            "longitude":  round(float(data.get("lon")), 2),
+            "latitude": round(float(data.get("lat")), 4),
+            "longitude": round(float(data.get("lon")), 4),
             "country": address.get("country"),
             "country_code": address.get("country_code"),
             "state": address.get("state"),
